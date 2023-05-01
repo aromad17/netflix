@@ -1,5 +1,4 @@
 const requests = {
-
   fetchNowPlaying: "/movie/now_playing",
   fetchNetflixOriginals: "/discover/tv?with_networks=213",
   fetchTrending: "/trending/all/week",
@@ -9,6 +8,7 @@ const requests = {
   fetchAdventureMovies: "/discover/movie?with_genres=12",
   fetchScienceFictionMovies: "/discover/movie?with_genres=878",
   fetchAction: "/discover/movie?with_genres=28",
+  fetchPopular: "/movie/popular",
 
 }
 

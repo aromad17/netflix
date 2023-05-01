@@ -31,6 +31,7 @@ box-sizing:border-box;
 border-top: 1px solid rgb(25,25,25);
 width:100%;
 position:relative;
+bottom:0;
 z-index:100;
 
 @media (max-width:768px){

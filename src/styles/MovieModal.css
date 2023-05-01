@@ -1,9 +1,10 @@
 .presentation {
-  z-index: 1200;
   position: absolute;
+  z-index: 9999 !important;
 }
 
 .wrapper-modal {
+
   position: fixed;
   left: 0;
   top: 0;

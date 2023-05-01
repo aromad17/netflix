@@ -5,8 +5,6 @@
 
 .detail_container {
   position: relative;
-  display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   color: #fff;
@@ -24,26 +22,35 @@ div.detail_bg {
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  padding: 0 100px;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   background: linear-gradient(to left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 1) 70%);
 }
 
 .detail_cont {
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  transform: translateY(-50%);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: start;
-  width: 50%;
 }
 
 .detail_cont>h2 {
   margin: 20px 0;
   padding: 0;
   font-size: 40px
+}
+
+.detail_cont>h3{
+  margin: 0 0 15px 0;
+  font-size:25px;
+  font-style:oblique;
+  opacity: 0.8;
 }
 
 .detail_cont>ul {
@@ -79,4 +86,90 @@ div.detail_bg {
   line-height: 1.7;
   word-break: keep-all;
   color: #ccc;
+}
+
+.detail_video {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  min-width:500px;
+}
+
+.detail_video>svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  opacity: 0.7;
+  z-index: 77;
+  cursor: pointer;
+}
+
+.detail_video>svg:hover {
+  opacity: 1;
+}
+
+.detail_video>img {
+  width: 100%;
+  opacity: 1;
+}
+
+.go_back {
+  position: fixed;
+  top: 6%;
+  right: 2%;
+  display: block;
+  cursor: pointer;
+  font-size: 50px;
+  z-index: 5000;
+}
+
+@media screen and (max-width: 1400px) {
+
+  div.detail_container {
+    flex-direction: column;
+    padding-top:80px;
+    padding-bottom:80px;
+    background:#000;
+  }
+
+  .poster_wrap{
+    display: none;
+  }
+
+  div.detail_bg {
+    flex-direction: column;
+    position: unset;
+    gap:50px;
+    
+  }
+
+  .detail_cont {
+    order: 2;
+  }
+
+  .detail_video {
+    order: 1;
+  }
+
+  .detail_video>svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .detail_overview{
+    line-height: 2;
+  }
+
+
+}
+
+@media screen and (max-width: 768px) {
+  div.detail_bg{
+    padding:0 50px;
+  }
 }
