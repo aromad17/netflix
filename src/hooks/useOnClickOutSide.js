@@ -5,8 +5,6 @@ function useOnClickOutSide(ref, handler) {
 
   useEffect(() => {
 
-    console.log('ref-', ref)
-
     const listner = (e) => {
       if (!ref.current || ref.current.contains(e.target)) {
         //모달창이 안 닫히는 경우

@@ -2,7 +2,7 @@ import useOnClickOutSide from 'hooks/useOnClickOutSide';
 import React, { useRef } from 'react'
 import "styles/MovieModal.css"
 
-function MovieModal({ setModalOpen, backdrop_path, name, first_air_date, overview, release_date, title, vote_average }) {
+function MovieModal({ movie, setModalOpen, backdrop_path, name, first_air_date, overview, release_date, title, vote_average }) {
   const overviewLength = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
@@ -11,7 +11,7 @@ function MovieModal({ setModalOpen, backdrop_path, name, first_air_date, overvie
 
   useOnClickOutSide(ref, () => { setModalOpen(false) });
 
-
+  console.log(movie);
 
   return (
     <div className='presentation'>

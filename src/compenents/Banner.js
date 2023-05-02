@@ -3,9 +3,13 @@ import axios from '../api/axios'
 import requests from '../api/requests'
 import '../styles/banner.css'
 import styled from 'styled-components';
+import MovieModal from './MovieModal';
 
 function Banner() {
   const [movie, setMovie] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [movieSelected, setMovieSelected] = useState({});
+
   useEffect(() => {
     fetchData();
     //useEffect 안에서 async 쓸 수 없어서 함수로 생성 후 넣었음
@@ -36,59 +40,82 @@ function Banner() {
     // 스트링(무자열) 뒤에 ?가 있으면 값이 없어도 에러가 안나온다
   }
 
-
+  const handleClick = (movie) => {
+    setModalOpen(true);
+    setMovieSelected(movie);
+  }
 
   if (!isClicked) {
     return (
-      <header className='banner' style={{
-        backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
-        backgroundPosition: "top center",
-        backgroundSize: "cover"
-      }}>
+      <>
+        <header className='banner' style={{
+          backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+          backgroundPosition: "top center",
+          backgroundSize: "cover"
+        }}>
 
 
-        <div className='banner__contents'>
-          <h1 className='banner__title'>
-            {movie.title || movie.name || movie.original_name}
-            {/* movie.title이 없으면 movie.name으로 movie.name도 없으면 movie.original_name으로 */}
-          </h1>
-          <div className='banner__buttons'>
-            <button className='banner_button play' onClick={() => { setIsClicked(true) }}>
-              play
-            </button>
-            <button className='banner_button info'>
-              <div className='space'>
-                More Info
-              </div>
-            </button>
+          <div className='banner__contents'>
+            <h1 className='banner__title'>
+              {movie.title || movie.name || movie.original_name}
+              {/* movie.title이 없으면 movie.name으로 movie.name도 없으면 movie.original_name으로 */}
+            </h1>
+            <div className='banner__buttons'>
+              <button className='banner_button play' onClick={() => { setIsClicked(true) }}>
+                play
+              </button>
+              <button className='banner_button info' onClick={() => handleClick(movie)}>
+                <div className='space'>
+                  More Info
+                </div>
+              </button>
+            </div>
+            <p className='banner__description'>
+
+              {truncate(movie.overview, 100)}
+
+            </p>
+
+
           </div>
-          <p className='banner__description'>
-
-            {truncate(movie.overview, 100)}
-
-          </p>
-
-
-        </div>
-        <div className='banner--fadeBottom'></div>
-      </header>
+          <div className='banner--fadeBottom'></div>
+        </header>
+        {
+          modalOpen && (
+            <MovieModal
+              {...movieSelected}
+              setModalOpen={setModalOpen} //앞은 props 전달, 뒤의 state값인 setModalOpen을 전달
+            />
+          )
+        }
+      </>
     )
   } else {
     return (
-      <Container>
-        <HomeContainer>
-          <Iframe
-            src={`https://youtube.com/embed/${movie.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0]?.key}`}
-            width='640'
-            height='360'
-            frameborder='0'
-            allow='autoplay; Fullscreen'
-          ></Iframe>
-        </HomeContainer>
-      </Container >
-
+      <>
+        <Container>
+          <HomeContainer>
+            <Iframe
+              src={`https://youtube.com/embed/${movie.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0]?.key}`}
+              width='640'
+              height='360'
+              frameborder='0'
+              allow='autoplay; Fullscreen'
+            ></Iframe>
+          </HomeContainer>
+        </Container >
+        {
+          modalOpen && (
+            <MovieModal
+              {...movieSelected}
+              setModalOpen={setModalOpen} //앞은 props 전달, 뒤의 state값인 setModalOpen을 전달
+            />
+          )
+        }
+      </>
     )
   }
+
 }
 
 const Container = styled.div`

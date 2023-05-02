@@ -2,7 +2,7 @@ import axios from '../api/axios';
 import React, { useEffect, useState, useCallback } from 'react';
 import 'styles/row.css';
 import MovieModal from './MovieModal';
-import { FaPlayCircle, FaThumbsUp, FaPlusCircle } from 'react-icons/fa';
+import { FaPlusSquare, FaThumbsUp, FaPlusCircle } from 'react-icons/fa';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -25,7 +25,7 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
         },
       });
       setMouseOver(true);
-      setMovieSelected(getMovie);
+
       setMovieDetail(getMovie);
     } catch (error) {
       console.log(error);
@@ -34,24 +34,23 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
 
   const handleMouseLeave = useCallback(() => {
     setMouseOver(false);
-    setMovieSelected({});
   }, []);
 
-  const fetchMovieData = useCallback(async () => {
-    const request = await axios.get(fetchUrl);
-    setMovies(request.data.results);
-    return request;
-  }, [fetchUrl]);
 
   useEffect(() => {
     fetchMovieData();
-  }, [fetchMovieData]);
+  }, [fetchUrl]);
 
-  const handleClick = useCallback((movie) => {
+  const fetchMovieData = async () => {
+    const request = await axios.get(fetchUrl);
+    setMovies(request.data.results);
+    return request;
+  }
+
+  const handleClick = (movie) => {
     setModalOpen(true);
     setMovieSelected(movie);
-  }, []);
-
+  }
 
   return (
     <section className='row'>
@@ -61,6 +60,7 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
         navigation
         pagination={{ clickable: true }}
         loop={true}
+        spaceBetween={50}
         breakpoints={{
           1378: {
             slidesPerView: 6, //한번에 보이는 스라이드 개수
@@ -76,58 +76,62 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
             slidesPerGroup: 2
           }
         }}
-        spaceBetween={100}
+
       >
-        <div id={id} className='row__posters'>
+
+        <div id={id}>
           {movies.map((movie) => (
             <SwiperSlide key={movie.id}>
-              <div className='row__poster_wrap'
+              <div
+                className={`row__poster_wrap ${isLargeRow && "row__posterLarge"}`}
                 onMouseOver={() => handleMouseOver(movie)}
                 onMouseLeave={() => handleMouseLeave()}
+                onClick={() => handleClick(movie)}
               >
                 <img
-                  onClick={() => handleClick(movie)}
+
                   className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                   src={`https://image.tmdb.org/t/p/original/${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
                   loading='lazy'
                   alt={movie.title || movie.name || movie.original_name}
                 />
 
-                <div className='movie_details'>
-
-                  {mouseOver && (
+                <div className={`${!isLargeRow && "movie_details"}`}>
+                  {!isLargeRow &&
+                    mouseOver &&
                     movieDetail.videos.results[0] ?
-                      <iframe
-                        src={`https://youtube.com/embed/${movieDetail.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movieDetail.videos.results[0]?.key}`}
-                        frameborder='0'
-                        allow='autoplay; Fullscreen'
-                        width="100%"
-                        height="100%"
-                        title={`${movie.title || movie.name || movie.original_name} 영상`}
-                      ></iframe>
-                      :
-                      <img
-                        src={`https://image.tmdb.org/t/p/original/${movieDetail.backdrop_path}`}
-                        alt={movie.title || movie.name || movie.original_name}
-                      />
+                    <iframe
+                      src={`https://youtube.com/embed/${movieDetail.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movieDetail.videos.results[0]?.key}`}
+                      frameBorder='0'
+                      allow='autoplay Fullscreen'
+                      width="100%"
+                      height="100%"
+                      title={`${movie.title || movie.name || movie.original_name} 영상`}
+                    ></iframe>
+                    :
+                    !isLargeRow &&
+                    <img
+                      src={`https://image.tmdb.org/t/p/original/${movieDetail.backdrop_path}`}
+                      alt={movie.title || movie.name || movie.original_name}
+                    />
+                  }
 
-                  )}
-
-                  <div className='movie_control'>
-                    <p>{movie.title || movie.name || movie.original_name}</p>
-                    <ul>
-                      <li
-                        onClick={() => handleClick(movie)}
-                        title='자세히 보기'
-                      ><FaPlayCircle /></li>
-                      <li><FaThumbsUp /></li>
-                      <li><FaPlusCircle /></li>
-                    </ul>
-                  </div>
-
+                  {
+                    !isLargeRow &&
+                    <div className="movie_control">
+                      <p>{movie.title || movie.name || movie.original_name}</p>
+                      <ul>
+                        <li><FaPlusSquare onClick={() => handleClick(movie)}
+                          title='자세히 보기' /></li>
+                        <li><FaThumbsUp /></li>
+                        <li><FaPlusCircle /></li>
+                      </ul>
+                    </div>
+                  }
                 </div>
               </div>
             </SwiperSlide>
+
           ))}
         </div>
 
