@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/netflix/static/css/main.b9528d6c.css",
-    "main.js": "/netflix/static/js/main.ba62f4f9.js",
+    "main.css": "/netflix/static/css/main.302804ee.css",
+    "main.js": "/netflix/static/js/main.208d95da.js",
     "static/media/KR-ko-20230410-popsignuptwoweeks-perspective_alpha_website_large.jpg": "/netflix/static/media/KR-ko-20230410-popsignuptwoweeks-perspective_alpha_website_large.2e842371d51ff7538afe.jpg",
     "index.html": "/netflix/index.html",
-    "main.b9528d6c.css.map": "/netflix/static/css/main.b9528d6c.css.map",
-    "main.ba62f4f9.js.map": "/netflix/static/js/main.ba62f4f9.js.map"
+    "main.302804ee.css.map": "/netflix/static/css/main.302804ee.css.map",
+    "main.208d95da.js.map": "/netflix/static/js/main.208d95da.js.map"
   },
   "entrypoints": [
-    "static/css/main.b9528d6c.css",
-    "static/js/main.ba62f4f9.js"
+    "static/css/main.302804ee.css",
+    "static/js/main.208d95da.js"
   ]
 }
