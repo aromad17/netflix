@@ -1,0 +1,41 @@
+.my_movie_list {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s linear 0s;
+}
+
+.my_movie_list:hover {
+  transform: scale(1.2);
+  z-index: 90;
+}
+
+.my_movie_list>img {
+  width: 100%;
+}
+
+.my_movie_list>div {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.my_movie_list>div>h2 {
+  font-size: 24px;
+  color: #fff;
+  padding-left: 0;
+}
+
+.my_movie_list>div>ul>li {
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 20px;
+  font-size: 12px;
+}
+
+.swiper-button-prev.swiper-button-disabled {
+  opacity: 1;
+}

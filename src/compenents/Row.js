@@ -2,21 +2,22 @@ import axios from '../api/axios';
 import React, { useEffect, useState, useCallback } from 'react';
 import 'styles/row.css';
 import MovieModal from './MovieModal';
-import { FaPlusSquare, FaThumbsUp, FaPlusCircle } from 'react-icons/fa';
+import { FaPlusSquare, FaThumbsUp, FaHeart } from 'react-icons/fa';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from './fbase';
 
-function Row({ isLargeRow, title, id, fetchUrl }) {
+function Row({ isLargeRow, title, id, fetchUrl, userObj }) {
   const [movies, setMovies] = useState([]);
   const [movieSelected, setMovieSelected] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [movieDetail, setMovieDetail] = useState([]);
-
   const handleMouseOver = useCallback(async (movie) => {
     try {
       const { data: getMovie } = await axios.get(`/movie/${movie.id}`, {
@@ -25,7 +26,6 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
         },
       });
       setMouseOver(true);
-
       setMovieDetail(getMovie);
     } catch (error) {
       console.log(error);
@@ -52,6 +52,20 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
     setMovieSelected(movie);
   }
 
+  const onAddList = async (e) => {
+    e.preventDefault();
+    try {
+      const docRef = await addDoc(collection(db, "movie_list"), {
+        userId: userObj.uid,
+        createdAt: Date.now(),
+        movieDetail: movieDetail,
+        movieId: movieDetail.id
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  }
   return (
     <section className='row'>
       <h2>{title}</h2>
@@ -76,7 +90,6 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
             slidesPerGroup: 2
           }
         }}
-
       >
 
         <div id={id}>
@@ -86,48 +99,57 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
                 className={`row__poster_wrap ${isLargeRow && "row__posterLarge"}`}
                 onMouseOver={() => handleMouseOver(movie)}
                 onMouseLeave={() => handleMouseLeave()}
-                onClick={() => handleClick(movie)}
               >
                 <img
-
                   className={`row__poster ${isLargeRow && "row__posterLarge"}`}
                   src={`https://image.tmdb.org/t/p/original/${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
                   loading='lazy'
                   alt={movie.title || movie.name || movie.original_name}
                 />
-
                 <div className={`${!isLargeRow && "movie_details"}`}>
                   {!isLargeRow &&
                     mouseOver &&
                     movieDetail.videos.results[0] ?
-                    <iframe
-                      src={`https://youtube.com/embed/${movieDetail.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movieDetail.videos.results[0]?.key}`}
-                      frameBorder='0'
-                      allow='autoplay Fullscreen'
-                      width="100%"
-                      height="100%"
-                      title={`${movie.title || movie.name || movie.original_name} 영상`}
-                    ></iframe>
+                    <>
+                      <iframe
+                        src={`https://youtube.com/embed/${movieDetail.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movieDetail.videos.results[0]?.key}`}
+                        frameBorder='0'
+                        allow='autoplay Fullscreen'
+                        width="100%"
+                        height="100%"
+                        title={`${movie.title || movie.name || movie.original_name} 영상`}
+                      >
+                      </iframe>
+                      <div className="movie_control">
+                        <p>{movie.title || movie.name || movie.original_name}</p>
+                        <ul>
+                          <li><FaPlusSquare onClick={() => handleClick(movie)}
+                            title='자세히 보기' /></li>
+                          <li><FaThumbsUp /></li>
+                          <li><FaHeart onClick={onAddList} /></li>
+                        </ul>
+                      </div>
+                    </>
                     :
                     !isLargeRow &&
-                    <img
-                      src={`https://image.tmdb.org/t/p/original/${movieDetail.backdrop_path}`}
-                      alt={movie.title || movie.name || movie.original_name}
-                    />
+                    <>
+                      <img
+                        src={`https://image.tmdb.org/t/p/original/${movieDetail.backdrop_path}`}
+                        alt={movie.title || movie.name || movie.original_nme}
+                      />
+                      <div className="movie_control">
+                        <p>{movie.title || movie.name || movie.original_name}</p>
+                        <ul>
+                          <li><FaPlusSquare onClick={() => handleClick(movie, userObj)}
+                            title='자세히 보기' /></li>
+                          <li><FaThumbsUp title='이 영화 좋아요' /></li>
+                          <li><FaHeart onClick={onAddList} title='영화 찜하기' /></li>
+                        </ul>
+                      </div>
+                    </>
                   }
 
-                  {
-                    !isLargeRow &&
-                    <div className="movie_control">
-                      <p>{movie.title || movie.name || movie.original_name}</p>
-                      <ul>
-                        <li><FaPlusSquare onClick={() => handleClick(movie)}
-                          title='자세히 보기' /></li>
-                        <li><FaThumbsUp /></li>
-                        <li><FaPlusCircle /></li>
-                      </ul>
-                    </div>
-                  }
+
                 </div>
               </div>
             </SwiperSlide>
@@ -141,6 +163,7 @@ function Row({ isLargeRow, title, id, fetchUrl }) {
         modalOpen && (
           <MovieModal
             {...movieSelected}
+            movieDetail={movieDetail}
             setModalOpen={setModalOpen} //앞은 props 전달, 뒤의 state값인 setModalOpen을 전달
           />
         )

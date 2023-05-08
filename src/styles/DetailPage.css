@@ -30,7 +30,7 @@ div.detail_bg {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 1) 70%);
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 1) 130%);
 }
 
 .detail_cont {
@@ -38,19 +38,22 @@ div.detail_bg {
   flex-direction: column;
   justify-content: center;
   align-items: start;
+  min-width: 800px;
 }
 
 .detail_cont>h2 {
   margin: 20px 0;
   padding: 0;
-  font-size: 40px
+  font-size: 40px;
+  word-break: keep-all;
 }
 
-.detail_cont>h3{
+.detail_cont>h3 {
   margin: 0 0 15px 0;
-  font-size:25px;
-  font-style:oblique;
+  font-size: 25px;
+  font-style: oblique;
   opacity: 0.8;
+  word-break: keep-all;
 }
 
 .detail_cont>ul {
@@ -93,8 +96,8 @@ div.detail_bg {
   display: flex;
   justify-content: center;
   align-items: center;
-  width:100%;
-  min-width:500px;
+  width: 100%;
+  min-width: 500px;
 }
 
 .detail_video>svg {
@@ -128,24 +131,42 @@ div.detail_bg {
   z-index: 5000;
 }
 
+.prev_page {
+  position: absolute;
+  top: 80px;
+  right: 100px;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.prev_page>svg {
+  width: 30px;
+  height: 30px;
+  transition: all 0.3s linear 0s;
+}
+
+.prev_page:hover>svg {
+  transform: scale(1.5);
+}
+
 @media screen and (max-width: 1400px) {
 
   div.detail_container {
     flex-direction: column;
-    padding-top:80px;
-    padding-bottom:80px;
-    background:#000;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background: #000;
   }
 
-  .poster_wrap{
+  .poster_wrap {
     display: none;
   }
 
   div.detail_bg {
     flex-direction: column;
     position: unset;
-    gap:50px;
-    
+    gap: 50px;
+
   }
 
   .detail_cont {
@@ -161,15 +182,45 @@ div.detail_bg {
     height: 30px;
   }
 
-  .detail_overview{
+  .detail_overview {
     line-height: 2;
+  }
+
+  .prev_page {
+    position: absolute;
+    top: 80px;
+    right: 10%;
+    z-index: 9999;
+    cursor: pointer;
   }
 
 
 }
 
 @media screen and (max-width: 768px) {
-  div.detail_bg{
-    padding:0 50px;
+
+  div.detail_bg {
+    padding: 0 50px;
+  }
+
+  .detail_cont {
+    min-width: unset;
+  }
+
+  .detail_cont>h3 {
+    font-size: 16px;
+  }
+
+  .detail_cont>h2 {
+    font-size: 24px;
+  }
+
+
+  .detail_genres>li {
+    padding: 0 10px;
+  }
+
+  .detail_overview {
+    font-size: 12px;
   }
 }

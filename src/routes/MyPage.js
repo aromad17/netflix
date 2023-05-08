@@ -4,8 +4,7 @@ import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { authService, storage } from 'compenents/fbase';
 import { v4 as uuidv4 } from 'uuid';
 import { updateProfile } from "@firebase/auth";
-
-
+import MovieList from 'compenents/MovieList';
 
 
 function MyPage({ userObj, newPhoto, setNewPhoto }) {
@@ -70,6 +69,10 @@ function MyPage({ userObj, newPhoto, setNewPhoto }) {
 
       <div className='my_creation_time'><span>가입 시간</span> {userObj.metadata.creationTime}</div>
 
+      <div className='movie_list'>
+        <span>찜 목록</span>
+        <MovieList userObj={userObj} />
+      </div>
 
     </div>
   )

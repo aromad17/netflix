@@ -3,18 +3,24 @@
   color: #fff;
 }
 
+.row:hover {
+  position: relative;
+  z-index: 100;
+}
+
 h2 {
   padding-left: 20px;
 }
 
 .swiper,
 swiper-container {
+
   overflow: visible !important;
 }
 
 .swiper-wrapper:hover {
   position: relative;
-  /* z-index: 9999; */
+  z-index: 5;
 }
 
 .swiper-slide {
@@ -22,12 +28,16 @@ swiper-container {
 }
 
 .swiper-slide:hover {
-  z-index: 9999;
+  z-index: 9000;
 }
 
-.swiper-slide:first-child {
-  transform-origin: left center;
+/* .swiper-slide:nth-child(1)>.row__poster_wrap {
+  transform-origin: center left;
 }
+
+.swiper-slide:nth-child(6)>.row__poster_wrap {
+  transform-origin: center right;
+} */
 
 .row__posters {
   display: flex;
@@ -35,6 +45,7 @@ swiper-container {
   scroll-behavior: smooth;
   position: relative;
   transition: all 0.3s linear 0s;
+  z-index: 9500;
 }
 
 .row__posters::-webkit-scrollbar {
@@ -48,8 +59,6 @@ swiper-container {
   transition: transform 0.3s linear 0s;
 }
 
-.swiper-slide:hover>.row__poster_wrap {}
-
 .row__poster {
   width: 100%;
   max-height: 144px;
@@ -60,9 +69,8 @@ swiper-container {
   display: block;
 }
 
-
 .row__poster_wrap:hover {
-  transform-origin: bottom center;
+  /* transform-origin: bottom center; */
   transform: scale(1.8);
 }
 
@@ -75,24 +83,42 @@ swiper-container {
 }
 
 .movie_details {
+  position: relative;
+  background: transparent;
   display: none;
   width: 100%;
   height: 100%;
+  background: #000;
+  border-radius: 5px;
+}
+
+iframe {
+  position: relative;
+  top: -11px;
+  width: 100%;
+  height: 100%;
+  /* position: absolute;
+  top: 0;
+  left: 0; */
 }
 
 .row__poster_wrap:hover>.movie_details {
   display: block;
 }
 
+.row__poster_wrap:hover>.movie_details>.movie_control {
+  display: block;
+}
+
+.row__poster_wrap:hover>.movie_details>img {
+  width: 100%;
+  height: 100%;
+}
 
 .row__posterLarge {
   max-height: 320px;
   transition: transform 450ms linear 0s;
-}
-
-.movie_details>img {
-  width: 100%;
-  height: 100%;
+  transform-origin: center !important;
 }
 
 .row__posterLarge:hover {
@@ -100,8 +126,9 @@ swiper-container {
 }
 
 .movie_control {
+  position: absolute;
+  bottom: -35%;
   width: 100%;
-  height: 60px;
   background: #000;
   color: #fff;
   padding: 10px;
@@ -161,6 +188,12 @@ swiper-container {
   background: rgba(20, 20, 20, 0.5);
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+  height: 100% !important;
+  transform: translateY(-50%) !important;
+}
+
 @media screen and (min-width:1200px) {
   .row__poster {
     max-height: 160px;
@@ -169,9 +202,52 @@ swiper-container {
   .row__posterLarge {
     max-height: 360px;
   }
+
+
+  iframe {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+  }
+
+
+  .movie_control>ul>li {
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s linear 0s;
+  }
+
+  .movie_control>ul>li>svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .movie_control>ul>li:hover {
+    transform: scale(1.5);
+  }
+
+  .movie_control>ul>li:nth-child(2) :hover {
+    color: #235dd9;
+  }
+
+  .movie_control>ul>li:nth-child(3) :hover {
+    color: #ee2244;
+  }
+
 }
 
 @media screen and (max-width:768px) {
+  .swiper-slide:nth-child(1)>.row__poster_wrap {
+    transform-origin: center left;
+  }
+
+  .swiper-slide:nth-child(4)>.row__poster_wrap {
+    transform-origin: center right;
+  }
+
   .row__poster {
     max-height: 100px;
   }
@@ -179,8 +255,40 @@ swiper-container {
   .row__posterLarge {
     max-height: 280px;
   }
+
+  .movie_control>p {
+    font-size: 12px;
+  }
+
+  .movie_control>ul>li {
+    width: 10px;
+    height: 10px;
+  }
+
 }
 
+
+@media screen and (max-width:768px) {
+  .swiper-slide:nth-child(1)>.row__poster_wrap {
+    transform-origin: center left;
+  }
+
+  .swiper-slide:nth-child(4)>.row__poster_wrap {
+    transform-origin: center right;
+  }
+
+}
+
+@media screen and (max-width:100px) {
+  .swiper-slide:nth-child(1)>.row__poster_wrap {
+    transform-origin: center left;
+  }
+
+  .swiper-slide:nth-child(4)>.row__poster_wrap {
+    transform-origin: center right;
+  }
+
+}
 
 /* swiper */
 
@@ -201,6 +309,7 @@ swiper-container {
 
 .swiper-pagination {
   text-align: center !important;
+  z-index: 1 !important;
 }
 
 .swiper-pagination-bullet {

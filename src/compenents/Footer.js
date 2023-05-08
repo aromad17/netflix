@@ -32,7 +32,7 @@ border-top: 1px solid rgb(25,25,25);
 width:100%;
 position:relative;
 bottom:0;
-z-index:100;
+z-index:50;
 
 @media (max-width:768px){
   padding:20px 20px 30px;

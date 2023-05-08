@@ -3,7 +3,7 @@ import axios from '../api/axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import 'styles/SearchPage.css'
-
+import { FaPlusSquare, FaThumbsUp, FaHeart } from 'react-icons/fa';
 
 function SearchPage() {
 
@@ -34,7 +34,9 @@ function SearchPage() {
 
   }
 
-
+  const overviewLength = (str, n) => {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
 
   useEffect(() => {
     if (debounceSearchTerm) {
@@ -53,8 +55,18 @@ function SearchPage() {
             const movieImageUrl = "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
             return (
               <div className='movie'>
-                <div className='movie__column-poster' onClick={() => { navigate(`/${movie.id}`) }}>
+                <div className='movie__column-poster' >
                   <img src={movieImageUrl} alt={movie.title} className='movie__poster' />
+                  <div className='movie__column-detail'>
+                    <h2>{movie.title}</h2>
+                    <p>  {overviewLength(movie.overview, 60)}</p>
+                    <ul>
+                      <li><FaPlusSquare onClick={() => { navigate(`/${movie.id}`) }}
+                        title='자세히 보기' /></li>
+                      <li><FaThumbsUp /></li>
+                      <li><FaHeart /></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             )

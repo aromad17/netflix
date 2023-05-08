@@ -1,9 +1,10 @@
 import requests from '../api/requests';
 import axios from '../api/axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import 'styles/DetailPage.css';
-import { FaPlayCircle, FaArrowLeft } from "react-icons/fa";
+import { FaPlayCircle } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 import styled from 'styled-components';
 
 function DetailPage() {
@@ -13,6 +14,8 @@ function DetailPage() {
   const [genres, setGenres] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   let { movieId } = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -45,6 +48,7 @@ function DetailPage() {
 
   return (
     <div className='detail_container'>
+
       <div className='poster_wrap'>
         <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="{movie.title || movie.name || movie.original_name}" />
       </div>
@@ -77,14 +81,10 @@ function DetailPage() {
         </div>
 
         <div className='detail_video' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-          {isHover ?
-            <>
-              <FaPlayCircle onClick={() => { setIsClicked(true) }} />
-              <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="{movie.title || movie.name || movie.original_name}" />
-            </>
-            :
-            <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="{movie.title || movie.name || movie.original_name}" />
-          }
+
+          <FaPlayCircle onClick={() => { setIsClicked(true) }} />
+          <img src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="{movie.title || movie.name || movie.original_name}" />
+
         </div>
       </div>
       {isClicked ?
@@ -93,7 +93,7 @@ function DetailPage() {
             X
           </span>
           <Iframe
-            src={`https://youtube.com/embed/${movie.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0]?.key}`}
+            src={`https://youtube.com/embed/${movie.videos.results[0]?.key}?controls=1&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0]?.key}`}
             frameborder='0'
             allow='autoplay; Fullscreen'
           >
@@ -102,6 +102,7 @@ function DetailPage() {
         :
         <></>
       }
+      <div className='prev_page'><AiOutlineClose onClick={() => { navigate(-1) }} /></div>
     </div>
   )
 }

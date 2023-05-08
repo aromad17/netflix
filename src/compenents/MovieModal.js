@@ -1,17 +1,23 @@
 import useOnClickOutSide from 'hooks/useOnClickOutSide';
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import "styles/MovieModal.css"
+import { FaPlusSquare, FaThumbsUp, FaHeart } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-function MovieModal({ movie, setModalOpen, backdrop_path, name, first_air_date, overview, release_date, title, vote_average }) {
+function MovieModal({ movieDetail, setModalOpen, id, backdrop_path, name, first_air_date, overview, release_date, title, vote_average, genres }) {
+
+
+
   const overviewLength = (str, n) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
 
-  const ref = useRef();
+  console.log(movieDetail);
 
+  const ref = useRef();
+  const navigate = useNavigate();
   useOnClickOutSide(ref, () => { setModalOpen(false) });
 
-  console.log(movie);
 
   return (
     <div className='presentation'>
@@ -32,6 +38,15 @@ function MovieModal({ movie, setModalOpen, backdrop_path, name, first_air_date, 
               <p className='modal__overview'>
                 {overviewLength(overview, 100)}
               </p>
+              <ul>
+                <li><FaPlusSquare
+                  onMouseEnter={() => { console.log({ id }) }}
+                  onClick={() => { navigate(`/${id}`) }}
+                  title='자세히 보기' /></li>
+                <li><FaThumbsUp title='이 영화 좋아요' /></li>
+                <li><FaHeart title='영화 찜하기' /></li>
+              </ul>
+
             </div>
           </div>
         </div>

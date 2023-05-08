@@ -27,12 +27,10 @@ function AppRouter({ isLoggedIn, userObj }) {
 
   return (
 
-
-
     <Routes>
       {isLoggedIn ? (
         <Route path="/" element={<Layout userObj={userObj} newPhoto={newPhoto} />}>
-          <Route index element={<MainPage />} />
+          <Route index element={<MainPage userObj={userObj} />} />
           <Route path=":movieId" element={<DetailPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path='/mypage' element={<MyPage userObj={userObj} newPhoto={newPhoto} setNewPhoto={setNewPhoto} />} />
@@ -41,7 +39,6 @@ function AppRouter({ isLoggedIn, userObj }) {
         <Route path="/" element={<Auth />} />
       )}
       <Route path='/join' element={<Join />} />
-
     </Routes>
 
 
