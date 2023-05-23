@@ -3,8 +3,10 @@ import React, { useRef, useState } from 'react'
 import "styles/MovieModal.css"
 import { FaPlusSquare, FaThumbsUp, FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from './fbase';
 
-function MovieModal({ movieDetail, setModalOpen, id, backdrop_path, name, first_air_date, overview, release_date, title, vote_average, genres }) {
+function MovieModal({ movieDetail, setModalOpen, id, backdrop_path, name, first_air_date, overview, release_date, title, vote_average, userObj, isLargeRow }) {
 
 
 
@@ -18,6 +20,22 @@ function MovieModal({ movieDetail, setModalOpen, id, backdrop_path, name, first_
   const navigate = useNavigate();
   useOnClickOutSide(ref, () => { setModalOpen(false) });
 
+
+
+  const onAddList = async (e) => {
+    e.preventDefault();
+    try {
+      const docRef = await addDoc(collection(db, "movie_list"), {
+        userId: userObj.uid,
+        createdAt: Date.now(),
+        movieDetail: movieDetail,
+        movieId: movieDetail.id
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  }
 
   return (
     <div className='presentation'>
@@ -39,12 +57,12 @@ function MovieModal({ movieDetail, setModalOpen, id, backdrop_path, name, first_
                 {overviewLength(overview, 100)}
               </p>
               <ul>
-                <li><FaPlusSquare
+                {isLargeRow ? <></> : <li><FaPlusSquare
                   onMouseEnter={() => { console.log({ id }) }}
                   onClick={() => { navigate(`/${id}`) }}
-                  title='자세히 보기' /></li>
-                <li><FaThumbsUp title='이 영화 좋아요' /></li>
-                <li><FaHeart title='영화 찜하기' /></li>
+                  title='자세히 보기' className='watch_movie_more' /></li>}
+
+                <li><FaHeart onClick={onAddList} title='영화 찜하기' className='add_my_list' /></li>
               </ul>
 
             </div>

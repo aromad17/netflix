@@ -4,7 +4,6 @@
 }
 
 .wrapper-modal {
-
   position: fixed;
   left: 0;
   top: 0;
@@ -13,13 +12,17 @@
   display: flex;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.71);
+  overflow: auto;
+}
+
+.wrapper-modal::-webkit-scrollbar-vertical {
+  display: none;
 }
 
 .modal {
   position: relative;
   max-width: 800px;
   background: #111;
-  overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
     0 5px 8px 0 rgba(0, 0, 0, 0.14),
@@ -54,6 +57,7 @@
 
 .modal__content {
   padding: 40px;
+  background: #111;
 }
 
 .modal__details {
@@ -104,11 +108,11 @@
   transform: scale(1.5);
 }
 
-.modal__details>ul>li:nth-child(2) :hover {
+.watch_movie_more:hover {
   color: #235dd9;
 }
 
-.modal__details>ul>li:nth-child(3) :hover {
+.add_my_list:hover {
   color: #ee2244;
 }
 

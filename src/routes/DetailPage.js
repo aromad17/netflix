@@ -6,16 +6,36 @@ import 'styles/DetailPage.css';
 import { FaPlayCircle } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import styled from 'styled-components';
+import { FaPlusSquare, FaThumbsUp, FaHeart } from 'react-icons/fa';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from 'compenents/fbase';
 
-function DetailPage() {
+function DetailPage({ userObj }) {
 
   const [movie, setMovie] = useState([]);
+  const [movieDetail, setMovieDetail] = useState(null);
   const [isHover, setIsHover] = useState(false);
   const [genres, setGenres] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   let { movieId } = useParams();
 
   const navigate = useNavigate();
+
+  const onAddList = async (e) => {
+    e.preventDefault();
+    try {
+      const docRef = await addDoc(collection(db, "movie_list"), {
+        userId: userObj.uid,
+        createdAt: Date.now(),
+        movieDetail: movieDetail,  // movieDetail state를 사용하여 저장
+        movieId: movieDetail.id    // movieDetail state를 사용하여 저장
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  }
+
 
   useEffect(() => {
     fetchData();
@@ -32,6 +52,7 @@ function DetailPage() {
       console.log("get->", getMovie);
 
       setMovie(getMovie);
+      setMovieDetail(getMovie);
       setGenres(getMovie.genres);
 
 
@@ -77,6 +98,10 @@ function DetailPage() {
           <p className='detail_overview'>
             {movie.overview}
           </p>
+
+          <ul className='movie_like'>
+            <li><FaHeart onClick={onAddList} title='영화 찜하기' /></li>
+          </ul>
 
         </div>
 

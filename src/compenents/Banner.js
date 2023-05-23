@@ -95,6 +95,7 @@ function Banner() {
       <>
         <Container>
           <HomeContainer>
+            <ExitBtn onClick={() => { setIsClicked(false) }}>닫기</ExitBtn>
             <Iframe
               src={`https://youtube.com/embed/${movie.videos.results[0]?.key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0]?.key}`}
               width='640'
@@ -123,6 +124,7 @@ const Container = styled.div`
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  position:relative;
   width:100%;
   height:100vh;
 `;
@@ -131,11 +133,22 @@ const HomeContainer = styled.div`
   width:100%;
   height:100%;
 `;
-
+const ExitBtn = styled.div`
+position: absolute;
+top:80px;
+right: 50px;
+background: #d71921;
+color:#111;
+padding:10px 20px;
+border-radius: 5px;
+font-weight: 600;
+z-index: 5;
+cursor: pointer;
+`
 const Iframe = styled.iframe`
   width:100%;
   height:100%;
-  z-index:-1;
+  z-index:0;
   opacity:0.65;
   border:none;
   &:after{

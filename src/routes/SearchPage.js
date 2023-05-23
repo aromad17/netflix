@@ -63,7 +63,6 @@ function SearchPage() {
                     <ul>
                       <li><FaPlusSquare onClick={() => { navigate(`/${movie.id}`) }}
                         title='자세히 보기' /></li>
-                      <li><FaThumbsUp /></li>
                       <li><FaHeart /></li>
                     </ul>
                   </div>

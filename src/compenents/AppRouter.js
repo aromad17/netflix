@@ -31,7 +31,7 @@ function AppRouter({ isLoggedIn, userObj }) {
       {isLoggedIn ? (
         <Route path="/" element={<Layout userObj={userObj} newPhoto={newPhoto} />}>
           <Route index element={<MainPage userObj={userObj} />} />
-          <Route path=":movieId" element={<DetailPage />} />
+          <Route path=":movieId" element={<DetailPage userObj={userObj} />} />
           <Route path="search" element={<SearchPage />} />
           <Route path='/mypage' element={<MyPage userObj={userObj} newPhoto={newPhoto} setNewPhoto={setNewPhoto} />} />
         </Route>

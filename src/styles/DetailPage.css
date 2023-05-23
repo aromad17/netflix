@@ -149,6 +149,33 @@ div.detail_bg {
   transform: scale(1.5);
 }
 
+
+ul.movie_like {
+  margin-top: 20px;
+}
+
+ul.movie_like>li {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-right: 50px;
+  cursor: pointer;
+  transition: all 0.3s linear 0s;
+}
+
+ul.movie_like>li>svg {
+  width: 100%;
+  height: 100%;
+}
+
+ul.movie_like>li:hover {
+  transform: scale(1.5);
+}
+
+ul.movie_like>li:nth-child(1) :hover {
+  color: #ee2244;
+}
+
 @media screen and (max-width: 1400px) {
 
   div.detail_container {
@@ -190,7 +217,7 @@ div.detail_bg {
     position: absolute;
     top: 80px;
     right: 10%;
-    z-index: 9999;
+    z-index: 900;
     cursor: pointer;
   }
 

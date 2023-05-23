@@ -2,8 +2,8 @@ import axios from '../api/axios';
 import React, { useEffect, useState, useCallback } from 'react';
 import 'styles/row.css';
 import MovieModal from './MovieModal';
-import { FaPlusSquare, FaThumbsUp, FaHeart } from 'react-icons/fa';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { FaPlusSquare, FaHeart } from 'react-icons/fa';
+import { Navigation, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,13 +11,14 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from './fbase';
-
+import { Cookies } from 'react-cookie';
 function Row({ isLargeRow, title, id, fetchUrl, userObj }) {
   const [movies, setMovies] = useState([]);
   const [movieSelected, setMovieSelected] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [movieDetail, setMovieDetail] = useState([]);
+
   const handleMouseOver = useCallback(async (movie) => {
     try {
       const { data: getMovie } = await axios.get(`/movie/${movie.id}`, {
@@ -42,10 +43,13 @@ function Row({ isLargeRow, title, id, fetchUrl, userObj }) {
   }, [fetchUrl]);
 
   const fetchMovieData = async () => {
-    const request = await axios.get(fetchUrl);
-    setMovies(request.data.results);
-    return request;
-  }
+    try {
+      const request = await axios.get(fetchUrl);
+      setMovies(request.data.results);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleClick = (movie) => {
     setModalOpen(true);
@@ -66,13 +70,13 @@ function Row({ isLargeRow, title, id, fetchUrl, userObj }) {
       console.error("Error adding document: ", error);
     }
   }
+
   return (
     <section className='row'>
       <h2>{title}</h2>
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        modules={[Navigation, Scrollbar, A11y]}
         navigation
-        pagination={{ clickable: true }}
         loop={true}
         spaceBetween={50}
         breakpoints={{
@@ -96,9 +100,10 @@ function Row({ isLargeRow, title, id, fetchUrl, userObj }) {
           {movies.map((movie) => (
             <SwiperSlide key={movie.id}>
               <div
-                className={`row__poster_wrap ${isLargeRow && "row__posterLarge"}`}
+                className={`row__poster_wrap ${isLargeRow ? "row__posterLarge" : ""}`}
                 onMouseOver={() => handleMouseOver(movie)}
                 onMouseLeave={() => handleMouseLeave()}
+                onClick={isLargeRow ? () => handleClick(movie) : undefined}
               >
                 <img
                   className={`row__poster ${isLargeRow && "row__posterLarge"}`}
@@ -118,15 +123,15 @@ function Row({ isLargeRow, title, id, fetchUrl, userObj }) {
                         width="100%"
                         height="100%"
                         title={`${movie.title || movie.name || movie.original_name} 영상`}
+
                       >
                       </iframe>
                       <div className="movie_control">
                         <p>{movie.title || movie.name || movie.original_name}</p>
                         <ul>
-                          <li><FaPlusSquare onClick={() => handleClick(movie)}
+                          <li className='watch_movie_more'><FaPlusSquare onClick={() => handleClick(movie)}
                             title='자세히 보기' /></li>
-                          <li><FaThumbsUp /></li>
-                          <li><FaHeart onClick={onAddList} /></li>
+                          <li className='add_my_list'><FaHeart onClick={onAddList} /></li>
                         </ul>
                       </div>
                     </>
@@ -142,7 +147,6 @@ function Row({ isLargeRow, title, id, fetchUrl, userObj }) {
                         <ul>
                           <li><FaPlusSquare onClick={() => handleClick(movie, userObj)}
                             title='자세히 보기' /></li>
-                          <li><FaThumbsUp title='이 영화 좋아요' /></li>
                           <li><FaHeart onClick={onAddList} title='영화 찜하기' /></li>
                         </ul>
                       </div>
@@ -165,6 +169,7 @@ function Row({ isLargeRow, title, id, fetchUrl, userObj }) {
             {...movieSelected}
             movieDetail={movieDetail}
             setModalOpen={setModalOpen} //앞은 props 전달, 뒤의 state값인 setModalOpen을 전달
+            isLargeRow={isLargeRow}
           />
         )
       }

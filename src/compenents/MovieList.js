@@ -4,6 +4,9 @@ import { db } from './fbase';
 import 'styles/movieList.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, Navigation, Pagination, Scrollbar } from 'swiper';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 import { useNavigate } from 'react-router-dom';
 
 function MovieList({ userObj }) {
@@ -14,7 +17,7 @@ function MovieList({ userObj }) {
   }
 
   useEffect(() => {
-    const q = query(collection(db, "movie_list"), where("userId", "==", userObj.uid), orderBy("createdAt", "asc"));
+    const q = query(collection(db, "movie_list"), where("userId", "==", userObj.uid), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newArray = [];
       const uniqueMovies = new Set();
@@ -34,10 +37,17 @@ function MovieList({ userObj }) {
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={50}
-      slidesPerView={6}
-      slidesPerGroup={6}
       pagination={{ clickable: true }}
       navigation
+      breakpoints={{
+        1378: {
+          slidesPerView: 4, //한번에 보이는 스라이드 개수
+          slidesPerGroup: 4 //몇개씩 슬라이드 할지
+        }, 768: {
+          slidesPerView: 2,
+          slidesPerGroup: 2
+        }
+      }}
     >
       {addList.map((movie) => (
         <SwiperSlide key={movie.movieId} className='my_movie_list' onClick={() => { navigate(`/${movie.movieId}`) }}>
