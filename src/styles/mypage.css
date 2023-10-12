@@ -1,0 +1,50 @@
+.mypage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.mypage>img {
+  width: 200px;
+  height: 200px;
+  border-radius: 5px;
+}
+
+
+.mypage>form>fieldset {
+  border: none;
+}
+
+.mypage>form>fieldset>input {
+  display: none;
+}
+
+.mypage>form>fieldset>label {
+  display: block;
+  background: #E50914;
+  color: #fff;
+  padding: 10px;
+  outline: none;
+  margin: 20px 0;
+}
+
+.mypage>div {
+  width: 100%;
+  color: #fff;
+  text-align: left;
+  font-size: 20px;
+  margin-bottom: 30px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.mypage>div>span {
+  display: block;
+  font-size: 12px;
+  padding: 10px 0;
+}
+
+/* .mypage>div.movie_list {
+  width: auto;
+} */
