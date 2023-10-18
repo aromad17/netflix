@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import 'styles/auth.css'
 import { Link } from 'react-router-dom';
 import { authService } from 'compenents/fbase';
+import movieflixLogo from '../img/movieflix_logo.png';
 
 function Auth() {
 
@@ -65,7 +66,7 @@ function Auth() {
 
         <fieldset>
           <h1>
-            <img src='https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' alt="" />
+            <img src={movieflixLogo} alt="logo" />
           </h1>
           <h2>로그인</h2>
           <input className="input_id" name="email" type="email" placeholder='E-mail' required value={email} onChange={onChangeEmail} />

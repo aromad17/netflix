@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "../styles/nav.css"
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from './fbase';
-
+import movieflixLogo from '../img/movieflix_logo.png';
 
 function Nav({ userObj, newPhoto }) {
 
@@ -58,7 +58,7 @@ function Nav({ userObj, newPhoto }) {
 
   return (
     <nav className={`nav ${show && "nav__black"}`} >
-      <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/170px-Netflix_2015_logo.svg.png' alt='netflix log' className='nav__logo' onClick={() => { window.location.href = "/netflix/" }} />
+      <img src={movieflixLogo} alt='netflix log' className='nav__logo' onClick={() => { window.location.href = "/" }} />
 
       <input type='search' placeholder='영화를 검색해주세요' className='nav__input'
         onChange={onChange} value={searchValue}
