@@ -46,5 +46,8 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https:/movieflix.sanghyeonzzang.com"
+  "homepage": "https://movieflix.sanghyeonzzang.com",
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
+  }
 }
