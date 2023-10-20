@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/movieflix.sanghyeonzzang.com/static/css/main.a58a7d72.css",
-    "main.js": "/movieflix.sanghyeonzzang.com/static/js/main.4ab463be.js",
-    "static/media/cinema.jpg": "/movieflix.sanghyeonzzang.com/static/media/cinema.eef9a4b387221febfbbd.jpg",
-    "static/media/movieflix_logo.png": "/movieflix.sanghyeonzzang.com/static/media/movieflix_logo.b901d99d39b1b7b8e445.png",
-    "index.html": "/movieflix.sanghyeonzzang.com/index.html",
-    "main.a58a7d72.css.map": "/movieflix.sanghyeonzzang.com/static/css/main.a58a7d72.css.map",
-    "main.4ab463be.js.map": "/movieflix.sanghyeonzzang.com/static/js/main.4ab463be.js.map"
+    "main.css": "/static/css/main.f62e3270.css",
+    "main.js": "/static/js/main.fb51e846.js",
+    "static/media/cinema.jpg": "/static/media/cinema.eef9a4b387221febfbbd.jpg",
+    "static/media/movieflix_logo.png": "/static/media/movieflix_logo.b901d99d39b1b7b8e445.png",
+    "index.html": "/index.html",
+    "main.f62e3270.css.map": "/static/css/main.f62e3270.css.map",
+    "main.fb51e846.js.map": "/static/js/main.fb51e846.js.map"
   },
   "entrypoints": [
-    "static/css/main.a58a7d72.css",
-    "static/js/main.4ab463be.js"
+    "static/css/main.f62e3270.css",
+    "static/js/main.fb51e846.js"
   ]
 }
