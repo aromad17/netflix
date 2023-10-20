@@ -45,7 +45,9 @@ function Auth() {
         :
         <div className='joinGuide'>
           <div className='joinModal'>
-            회원가입은 실제 존재하는 이메일이 아니라 이메일 형식만 갖춰 입력하여도 가입이 됩니다.
+            회원가입은 실제 존재하는 이메일이 아닌 이메일 형식만 갖춰 입력하여도 가입이 됩니다.
+            <br />
+            <span>ex)abcd@abcde.com</span>
             <button onClick={modalClick}>
               확인
             </button>

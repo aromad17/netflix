@@ -11,46 +11,55 @@
   filter: blur(4px);
 }
 
-div.joinGuide{
+div.joinGuide {
   position: absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index:999;
-  }
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
 
-  div.joinModal{
-    position: absolute;
-    left: 50%;
-    top:50%;
-    transform: translate(-50%,-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width:300px;
-    height: 180px;
-    background-color: #fff;
-    padding:0 30px;
-    word-wrap: break-word;
-    box-sizing: border-box;
-    text-align: justify;
-    font-size:0.8rem;
-  }
+div.joinModal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 180px;
+  background-color: #fff;
+  padding: 0 30px;
+  word-wrap: break-word;
+  box-sizing: border-box;
+  text-align: justify;
+  font-size: 0.8rem;
+}
 
-  div.joinModal>button{
-    position: absolute;
-    bottom:0;
-    left:0;
-    width:100%;
-    height:20%;
-    border: none;
-    background: #000;
-    color:#fff;
-    font-size:0.8rem;
-    cursor: pointer;
-  }
+div.joinModal>span {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
+  text-align: left;
+  color: #777;
+}
+
+div.joinModal>button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  border: none;
+  background: #000;
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
 
 .auth_wrap>form {
   position: absolute;
