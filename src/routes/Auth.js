@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { authService } from 'compenents/fbase';
 import movieflixLogo from '../img/movieflix_logo.png';
 
-function Auth() {
+function Auth({ movieflixLogo }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

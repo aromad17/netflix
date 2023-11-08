@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import 'styles/join.css'
 
-function Join() {
+function Join({ movieflixLogo }) {
 
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
@@ -51,7 +51,7 @@ function Join() {
 
         <fieldset>
           <h1>
-            <img src='https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' alt="" />
+            <img src={movieflixLogo} alt="" />
           </h1>
           <h2>회원가입</h2>
           {/* 이메일 입력 */}

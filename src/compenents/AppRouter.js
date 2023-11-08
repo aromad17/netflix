@@ -8,6 +8,7 @@ import SearchPage from 'routes/SearchPage'
 import Auth from 'routes/Auth'
 import Join from 'routes/Join'
 import MyPage from 'routes/MyPage'
+import movieflixLogo from '../img/movieflix_logo.png';
 
 const Layout = ({ userObj, newPhoto }) => {
   return (
@@ -36,9 +37,9 @@ function AppRouter({ isLoggedIn, userObj }) {
           <Route path='/mypage' element={<MyPage userObj={userObj} newPhoto={newPhoto} setNewPhoto={setNewPhoto} />} />
         </Route>
       ) : (
-        <Route path="/" element={<Auth />} />
+        <Route path="/" element={<Auth movieflixLogo={movieflixLogo} />} />
       )}
-      <Route path='/join' element={<Join />} />
+      <Route path='/join' element={<Join movieflixLogo={movieflixLogo} />} />
     </Routes>
 
 
